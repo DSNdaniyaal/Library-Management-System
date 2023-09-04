@@ -2,10 +2,7 @@ import express from "express";
 import session from 'express-session';
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import borrowedBookRoutes from "./routes/borrowedBook.js";
-import userRoutes from "./routes/user.js";
-import bookRoutes from "./routes/book.js";
-import passport from "./Middleware/passport.js"
+import {borrowedBookRoutes,userRoutes,bookRoutes} from "./Routes/index.js";
 // import passport from 'passport'
 
 
@@ -19,9 +16,6 @@ app.use(session({
 }));
 dotenv.config();
 
-//passport is initialized
-app.use(passport.initialize());
-app.use(passport.session());
 
 const port = process.env.PORT || 4000;
 app.use(express.json({ limit: '5mb' }))

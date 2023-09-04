@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User from "./User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv"
@@ -11,7 +11,7 @@ const jwtSecret = process.env.JWT_SECRET;
 const tokenExpireIn = process.env.TOKEN_EXPIRES_IN;
 
 export const signUp = async (req, res, next) => {
-    const { name, email, password } = req.body;
+    const { name, email, password , role} = req.body;
     try {
         //Existing User Check
         const existingUser = await User.findOne({ email: email});
@@ -26,11 +26,11 @@ export const signUp = async (req, res, next) => {
 
         //user creation
         const user = await User.create({
-            name, email, password: hashPassword
+            name, email, password: hashPassword,role: role
         })
 
         //token generate
-        const token = jwt.sign({id: user._id}, jwtSecret, { expiresIn: tokenExpireIn})
+        const token = jwt.sign({id: user._id}, jwtSecret, { expiresIn: tokenExpireIn});
         res.status(201).json({
             success: true,
             messge: "Sign Up Successfully.",

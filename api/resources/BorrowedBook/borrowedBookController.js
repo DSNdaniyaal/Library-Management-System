@@ -1,6 +1,6 @@
-import User from "../models/User.js";
-import Book from "../models/Book.js";
-import BorrowedBook from "../models/BorrowedBook.js";
+import User from "../User/User.js";
+import Book from "../Book/Book.js";
+import BorrowedBook from "./BorrowedBook.js";
 
 
 export const issueBook = async (req, res, next) => {
