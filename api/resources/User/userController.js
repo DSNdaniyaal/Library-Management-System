@@ -28,9 +28,12 @@ export const signUp = async (req, res, next) => {
         const user = await User.create({
             name, email, password: hashPassword,role: role
         })
-
+// {id: user._id}
         //token generate
-        const token = jwt.sign({id: user._id}, jwtSecret, { expiresIn: tokenExpireIn});
+        //const user = await User.findById(userId);
+        const payload = user.toObject();
+        //const secret = 'my_secret_key';
+        const token = jwt.sign(payload, jwtSecret, { expiresIn: tokenExpireIn});
         res.status(201).json({
             success: true,
             messge: "Sign Up Successfully.",
@@ -62,9 +65,12 @@ export const signIn = async (req, res, next) => {
             err.status = 401;
             next(err);
         }
-
+// { id: user._id }
         //generating token
-        const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: tokenExpireIn});
+        //const user = await User.findById(userId);
+        const payload = user.toObject();
+        const secret = 'my_secret_key';
+        const token = jwt.sign(payload, jwtSecret, { expiresIn: tokenExpireIn});
         res.status(200).json({
             success: true,
             messge: "Sign In Successfully.",
